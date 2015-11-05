@@ -11,7 +11,7 @@
 
 @implementation APIClient
 
-static NSString * const BASE_URL = @"https://ajax.googleapis.com/ajax/services/search/images";
+static NSString * const BASE_URL = @"https://ajax.googleapis.com/";
 
 + (instancetype)sharedInstance
 {
@@ -28,11 +28,15 @@ static NSString * const BASE_URL = @"https://ajax.googleapis.com/ajax/services/s
     
     if (self = [super initWithBaseURL:[NSURL URLWithString:BASE_URL] ]) {
         
-        self.requestSerializer = [[AFJSONRequestSerializer alloc]init];
-        
+        AFJSONRequestSerializer *requestSerializer =[[AFJSONRequestSerializer alloc]init];
+        [requestSerializer setValue:@"http://gingerandthecyclist.com" forHTTPHeaderField:@"Referer"];
+
+        self.requestSerializer = requestSerializer;
+
         AFJSONResponseSerializer *responseSerializer = [[AFJSONResponseSerializer alloc]init];
         responseSerializer.removesKeysWithNullValues = true;
         self.responseSerializer = responseSerializer;
+        
         
         [[AFNetworkReachabilityManager sharedManager] startMonitoring];
         
@@ -50,13 +54,16 @@ static NSString * const BASE_URL = @"https://ajax.googleapis.com/ajax/services/s
     NSParameterAssert(searchTerm);
     
     NSDictionary *params = @{@"v":@"1.0", @"q":searchTerm};
-    
-    return [self GET:@"/" parameters:params success:success failure:failure];
+    return [self GET:@"/ajax/services/search/images" parameters:params success:success failure:failure];
     
 }
 
 
 #pragma mark - Private
+
+- (void)addHeaders {
+    [self.requestSerializer setValue:@"http://gingerandthecyclist.com" forHTTPHeaderField:@"referer"];
+}
 
 - (NSURLSessionDataTask *)dataTaskWithRequest:(NSURLRequest *)request
                             completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError *error))completionHandler {

@@ -8,9 +8,11 @@
 
 #import "ImageResultViewController.h"
 #import "DetailViewController.h"
+#import "ImageSearch.h"
+#import "ImageSearchResult.h"
 
 @interface ImageResultViewController()
-
+@property (strong) ImageSearch *imageSearch;
 @end
 
 @implementation ImageResultViewController
@@ -20,11 +22,26 @@
     // Do any additional setup after loading the view, typically from a nib.
 
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     self.clearsSelectionOnViewWillAppear = self.splitViewController.isCollapsed;
     [super viewWillAppear:animated];
+    
+    self.imageSearch = [[ImageSearch alloc]initWithQuery:@"pet dog"];
+    
+    [self.imageSearch executeWithComplete:^(NSArray *results, NSError *error) {
+        if (error){
+            NSLog(@"error: %@", error);
+        } else {
+            for (ImageSearchResult *result in results) {
+                NSLog(@"%@", [result thumbURL]);
+            }
+        }
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning {
