@@ -4,14 +4,16 @@
 # use_frameworks!
 
 target 'ImageSearcher' do
-
+pod "AFNetworking", "~> 2.0"
+pod 'SDWebImage', '~>3.7'
 end
 
 target 'ImageSearcherTests' do
-
+pod "AFNetworking", "~> 2.0"
+pod 'SDWebImage', '~>3.7'
 end
 
 target 'ImageSearcherUITests' do
-
+pod "AFNetworking", "~> 2.0"
+pod 'SDWebImage', '~>3.7'
 end
-

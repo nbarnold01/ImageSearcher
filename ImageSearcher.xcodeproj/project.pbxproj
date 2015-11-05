@@ -7,16 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14D701C352615D591445907B /* libPods-ImageSearcherUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7189AEDA5FA3B6F4F8A327 /* libPods-ImageSearcherUITests.a */; };
+		313BFB4E1BEBE3D80049BA1C /* APIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 313BFB4B1BEBE3D80049BA1C /* APIClient.m */; settings = {ASSET_TAGS = (); }; };
+		313BFB4F1BEBE3D80049BA1C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 313BFB4D1BEBE3D80049BA1C /* AppDelegate.m */; settings = {ASSET_TAGS = (); }; };
+		313BFB541BEBE3F50049BA1C /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 313BFB511BEBE3F50049BA1C /* DetailViewController.m */; settings = {ASSET_TAGS = (); }; };
+		313BFB551BEBE3F50049BA1C /* ImageResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 313BFB531BEBE3F50049BA1C /* ImageResultViewController.m */; settings = {ASSET_TAGS = (); }; };
 		31E50AF51BEBC1C000E384DD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E50AF41BEBC1C000E384DD /* main.m */; };
-		31E50AF81BEBC1C000E384DD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E50AF71BEBC1C000E384DD /* AppDelegate.m */; };
 		31E50AFB1BEBC1C000E384DD /* ImageSearcher.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 31E50AF91BEBC1C000E384DD /* ImageSearcher.xcdatamodeld */; };
-		31E50AFE1BEBC1C000E384DD /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E50AFD1BEBC1C000E384DD /* MasterViewController.m */; };
-		31E50B011BEBC1C000E384DD /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E50B001BEBC1C000E384DD /* DetailViewController.m */; };
 		31E50B041BEBC1C000E384DD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E50B021BEBC1C000E384DD /* Main.storyboard */; };
 		31E50B061BEBC1C000E384DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31E50B051BEBC1C000E384DD /* Assets.xcassets */; };
 		31E50B091BEBC1C000E384DD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E50B071BEBC1C000E384DD /* LaunchScreen.storyboard */; };
 		31E50B141BEBC1C000E384DD /* ImageSearcherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E50B131BEBC1C000E384DD /* ImageSearcherTests.m */; };
 		31E50B1F1BEBC1C000E384DD /* ImageSearcherUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E50B1E1BEBC1C000E384DD /* ImageSearcherUITests.m */; };
+		31E50B301BEBD21800E384DD /* ImageSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E50B2F1BEBD21800E384DD /* ImageSearchResult.m */; settings = {ASSET_TAGS = (); }; };
+		A3D3FA93901CB7E3D5D41FBB /* libPods-ImageSearcherTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D22B2F8B51E691E024A51803 /* libPods-ImageSearcherTests.a */; };
+		D59D2DF6C2B9B1735E81AC75 /* libPods-ImageSearcher.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AB4E76022CD2CB5336240E88 /* libPods-ImageSearcher.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,15 +42,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		204EF2D85B99764B9B8544BF /* Pods-ImageSearcherUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageSearcherUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ImageSearcherUITests/Pods-ImageSearcherUITests.release.xcconfig"; sourceTree = "<group>"; };
+		313BFB4A1BEBE3D80049BA1C /* APIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = APIClient.h; path = Models/APIClient.h; sourceTree = "<group>"; };
+		313BFB4B1BEBE3D80049BA1C /* APIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = APIClient.m; path = Models/APIClient.m; sourceTree = "<group>"; };
+		313BFB4C1BEBE3D80049BA1C /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Models/AppDelegate.h; sourceTree = "<group>"; };
+		313BFB4D1BEBE3D80049BA1C /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Models/AppDelegate.m; sourceTree = "<group>"; };
+		313BFB501BEBE3F50049BA1C /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailViewController.h; path = Controllers/DetailViewController.h; sourceTree = "<group>"; };
+		313BFB511BEBE3F50049BA1C /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailViewController.m; path = Controllers/DetailViewController.m; sourceTree = "<group>"; };
+		313BFB521BEBE3F50049BA1C /* ImageResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageResultViewController.h; path = Controllers/ImageResultViewController.h; sourceTree = "<group>"; };
+		313BFB531BEBE3F50049BA1C /* ImageResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageResultViewController.m; path = Controllers/ImageResultViewController.m; sourceTree = "<group>"; };
+		313BFB561BEBE41B0049BA1C /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = Helpers/Constants.h; sourceTree = "<group>"; };
 		31E50AF01BEBC1C000E384DD /* ImageSearcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageSearcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31E50AF41BEBC1C000E384DD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		31E50AF61BEBC1C000E384DD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		31E50AF71BEBC1C000E384DD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		31E50AFA1BEBC1C000E384DD /* ImageSearcher.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ImageSearcher.xcdatamodel; sourceTree = "<group>"; };
-		31E50AFC1BEBC1C000E384DD /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
-		31E50AFD1BEBC1C000E384DD /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
-		31E50AFF1BEBC1C000E384DD /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
-		31E50B001BEBC1C000E384DD /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		31E50B031BEBC1C000E384DD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		31E50B051BEBC1C000E384DD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		31E50B081BEBC1C000E384DD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -56,6 +65,16 @@
 		31E50B1A1BEBC1C000E384DD /* ImageSearcherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImageSearcherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		31E50B1E1BEBC1C000E384DD /* ImageSearcherUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageSearcherUITests.m; sourceTree = "<group>"; };
 		31E50B201BEBC1C000E384DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		31E50B2E1BEBD21700E384DD /* ImageSearchResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageSearchResult.h; path = Models/ImageSearchResult.h; sourceTree = "<group>"; };
+		31E50B2F1BEBD21800E384DD /* ImageSearchResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageSearchResult.m; path = Models/ImageSearchResult.m; sourceTree = "<group>"; };
+		4F73F9223B5359F2AAD0819D /* Pods-ImageSearcher.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageSearcher.release.xcconfig"; path = "Pods/Target Support Files/Pods-ImageSearcher/Pods-ImageSearcher.release.xcconfig"; sourceTree = "<group>"; };
+		5C7189AEDA5FA3B6F4F8A327 /* libPods-ImageSearcherUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ImageSearcherUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB4E76022CD2CB5336240E88 /* libPods-ImageSearcher.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ImageSearcher.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF69570358B4188A53A2FD0E /* Pods-ImageSearcherTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageSearcherTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ImageSearcherTests/Pods-ImageSearcherTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D04F8DDF97CEE435DFBDFF1E /* Pods-ImageSearcher.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageSearcher.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ImageSearcher/Pods-ImageSearcher.debug.xcconfig"; sourceTree = "<group>"; };
+		D22B2F8B51E691E024A51803 /* libPods-ImageSearcherTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ImageSearcherTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D65C6C534574FDEC534B91D7 /* Pods-ImageSearcherTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageSearcherTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ImageSearcherTests/Pods-ImageSearcherTests.release.xcconfig"; sourceTree = "<group>"; };
+		DCE035ED07680CA16E5002FB /* Pods-ImageSearcherUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageSearcherUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ImageSearcherUITests/Pods-ImageSearcherUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D59D2DF6C2B9B1735E81AC75 /* libPods-ImageSearcher.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3D3FA93901CB7E3D5D41FBB /* libPods-ImageSearcherTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,12 +98,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14D701C352615D591445907B /* libPods-ImageSearcherUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		313BFB571BEBE4DD0049BA1C /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				313BFB561BEBE41B0049BA1C /* Constants.h */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
 		31E50AE71BEBC1BF00E384DD = {
 			isa = PBXGroup;
 			children = (
@@ -90,6 +120,8 @@
 				31E50B121BEBC1C000E384DD /* ImageSearcherTests */,
 				31E50B1D1BEBC1C000E384DD /* ImageSearcherUITests */,
 				31E50AF11BEBC1C000E384DD /* Products */,
+				B9193F9C43204FC4D4A276A8 /* Pods */,
+				EFBB04DF6086D9305BA5D377 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -106,9 +138,9 @@
 		31E50AF21BEBC1C000E384DD /* ImageSearcher */ = {
 			isa = PBXGroup;
 			children = (
-				31E50AF61BEBC1C000E384DD /* AppDelegate.h */,
-				31E50AF71BEBC1C000E384DD /* AppDelegate.m */,
+				313BFB571BEBE4DD0049BA1C /* Helpers */,
 				31E50B2C1BEBD18E00E384DD /* Controllers */,
+				31E50B311BEBD21C00E384DD /* Models */,
 				31E50B2D1BEBD1A000E384DD /* Resources */,
 				31E50B0A1BEBC1C000E384DD /* Info.plist */,
 				31E50AF91BEBC1C000E384DD /* ImageSearcher.xcdatamodeld */,
@@ -146,10 +178,10 @@
 		31E50B2C1BEBD18E00E384DD /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				31E50AFC1BEBC1C000E384DD /* MasterViewController.h */,
-				31E50AFD1BEBC1C000E384DD /* MasterViewController.m */,
-				31E50AFF1BEBC1C000E384DD /* DetailViewController.h */,
-				31E50B001BEBC1C000E384DD /* DetailViewController.m */,
+				313BFB501BEBE3F50049BA1C /* DetailViewController.h */,
+				313BFB511BEBE3F50049BA1C /* DetailViewController.m */,
+				313BFB521BEBE3F50049BA1C /* ImageResultViewController.h */,
+				313BFB531BEBE3F50049BA1C /* ImageResultViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -157,11 +189,47 @@
 		31E50B2D1BEBD1A000E384DD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				31E50B021BEBC1C000E384DD /* Main.storyboard */,
 				31E50B051BEBC1C000E384DD /* Assets.xcassets */,
 				31E50B071BEBC1C000E384DD /* LaunchScreen.storyboard */,
+				31E50B021BEBC1C000E384DD /* Main.storyboard */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		31E50B311BEBD21C00E384DD /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				313BFB4A1BEBE3D80049BA1C /* APIClient.h */,
+				313BFB4B1BEBE3D80049BA1C /* APIClient.m */,
+				313BFB4C1BEBE3D80049BA1C /* AppDelegate.h */,
+				313BFB4D1BEBE3D80049BA1C /* AppDelegate.m */,
+				31E50B2E1BEBD21700E384DD /* ImageSearchResult.h */,
+				31E50B2F1BEBD21800E384DD /* ImageSearchResult.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		B9193F9C43204FC4D4A276A8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D04F8DDF97CEE435DFBDFF1E /* Pods-ImageSearcher.debug.xcconfig */,
+				4F73F9223B5359F2AAD0819D /* Pods-ImageSearcher.release.xcconfig */,
+				BF69570358B4188A53A2FD0E /* Pods-ImageSearcherTests.debug.xcconfig */,
+				D65C6C534574FDEC534B91D7 /* Pods-ImageSearcherTests.release.xcconfig */,
+				DCE035ED07680CA16E5002FB /* Pods-ImageSearcherUITests.debug.xcconfig */,
+				204EF2D85B99764B9B8544BF /* Pods-ImageSearcherUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		EFBB04DF6086D9305BA5D377 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AB4E76022CD2CB5336240E88 /* libPods-ImageSearcher.a */,
+				D22B2F8B51E691E024A51803 /* libPods-ImageSearcherTests.a */,
+				5C7189AEDA5FA3B6F4F8A327 /* libPods-ImageSearcherUITests.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -171,9 +239,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 31E50B231BEBC1C000E384DD /* Build configuration list for PBXNativeTarget "ImageSearcher" */;
 			buildPhases = (
+				DE52AA4040FA17E49E45B3C8 /* Check Pods Manifest.lock */,
 				31E50AEC1BEBC1C000E384DD /* Sources */,
 				31E50AED1BEBC1C000E384DD /* Frameworks */,
 				31E50AEE1BEBC1C000E384DD /* Resources */,
+				AAC78E101B91A04C5DD28D5D /* Embed Pods Frameworks */,
+				50A12538B887A1375B729FAF /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -188,9 +259,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 31E50B261BEBC1C000E384DD /* Build configuration list for PBXNativeTarget "ImageSearcherTests" */;
 			buildPhases = (
+				C403467D150A3593F2EC98A5 /* Check Pods Manifest.lock */,
 				31E50B0B1BEBC1C000E384DD /* Sources */,
 				31E50B0C1BEBC1C000E384DD /* Frameworks */,
 				31E50B0D1BEBC1C000E384DD /* Resources */,
+				7CBFDC87952F8D4C82E494F9 /* Embed Pods Frameworks */,
+				12A4A8CF9D5AF9C7A1F95417 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -206,9 +280,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 31E50B291BEBC1C000E384DD /* Build configuration list for PBXNativeTarget "ImageSearcherUITests" */;
 			buildPhases = (
+				C441D6032E681674C0716B3F /* Check Pods Manifest.lock */,
 				31E50B161BEBC1C000E384DD /* Sources */,
 				31E50B171BEBC1C000E384DD /* Frameworks */,
 				31E50B181BEBC1C000E384DD /* Resources */,
+				47BB13749DBF7CB2A0027239 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -289,16 +365,141 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		12A4A8CF9D5AF9C7A1F95417 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ImageSearcherTests/Pods-ImageSearcherTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		47BB13749DBF7CB2A0027239 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ImageSearcherUITests/Pods-ImageSearcherUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		50A12538B887A1375B729FAF /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ImageSearcher/Pods-ImageSearcher-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7CBFDC87952F8D4C82E494F9 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ImageSearcherTests/Pods-ImageSearcherTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AAC78E101B91A04C5DD28D5D /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ImageSearcher/Pods-ImageSearcher-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C403467D150A3593F2EC98A5 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C441D6032E681674C0716B3F /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		DE52AA4040FA17E49E45B3C8 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		31E50AEC1BEBC1C000E384DD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				31E50B011BEBC1C000E384DD /* DetailViewController.m in Sources */,
-				31E50AFE1BEBC1C000E384DD /* MasterViewController.m in Sources */,
-				31E50AF81BEBC1C000E384DD /* AppDelegate.m in Sources */,
+				313BFB4E1BEBE3D80049BA1C /* APIClient.m in Sources */,
 				31E50AF51BEBC1C000E384DD /* main.m in Sources */,
+				31E50B301BEBD21800E384DD /* ImageSearchResult.m in Sources */,
 				31E50AFB1BEBC1C000E384DD /* ImageSearcher.xcdatamodeld in Sources */,
+				313BFB551BEBE3F50049BA1C /* ImageResultViewController.m in Sources */,
+				313BFB4F1BEBE3D80049BA1C /* AppDelegate.m in Sources */,
+				313BFB541BEBE3F50049BA1C /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,6 +636,7 @@
 		};
 		31E50B241BEBC1C000E384DD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D04F8DDF97CEE435DFBDFF1E /* Pods-ImageSearcher.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ImageSearcher/Info.plist;
@@ -446,6 +648,7 @@
 		};
 		31E50B251BEBC1C000E384DD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4F73F9223B5359F2AAD0819D /* Pods-ImageSearcher.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ImageSearcher/Info.plist;
@@ -457,6 +660,7 @@
 		};
 		31E50B271BEBC1C000E384DD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BF69570358B4188A53A2FD0E /* Pods-ImageSearcherTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = ImageSearcherTests/Info.plist;
@@ -469,6 +673,7 @@
 		};
 		31E50B281BEBC1C000E384DD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D65C6C534574FDEC534B91D7 /* Pods-ImageSearcherTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = ImageSearcherTests/Info.plist;
@@ -481,6 +686,7 @@
 		};
 		31E50B2A1BEBC1C000E384DD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DCE035ED07680CA16E5002FB /* Pods-ImageSearcherUITests.debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = ImageSearcherUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -493,6 +699,7 @@
 		};
 		31E50B2B1BEBC1C000E384DD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 204EF2D85B99764B9B8544BF /* Pods-ImageSearcherUITests.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = ImageSearcherUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
