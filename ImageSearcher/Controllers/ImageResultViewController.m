@@ -42,9 +42,12 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [[self.collectionView indexPathsForSelectedItems]firstObject];
-        NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+//        NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+        
+        ImageSearchResult *result = [self resultForIndexPath:indexPath];
         DetailViewController *controller = (DetailViewController *)[[segue destinationViewController] topViewController];
-        [controller setDetailItem:object];
+        [controller setImage:result];
+        
         controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
         controller.navigationItem.leftItemsSupplementBackButton = YES;
     }
@@ -84,6 +87,15 @@
 - (ImageSearchResult *)resultForIndexPath:(NSIndexPath *)indexPath {
     return self.images[indexPath.row];
 }
+
+
+#pragma mark - Collection View Delegate
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [self performSegueWithIdentifier:@"showDetail" sender:nil];
+}
+
 
 #pragma mark - Fetched results controller
 
@@ -219,6 +231,12 @@
     [self search:searchBar.text];
 }
 
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
+    // called when cancel button pressed
+    [searchBar resignFirstResponder];
+    
+}
+
 #pragma mark - Private
 
 - (void)search:(NSString *)searchTerm {
@@ -239,6 +257,8 @@
         [self.collectionView reloadData];
     }
 }
+
+
 
 
 
