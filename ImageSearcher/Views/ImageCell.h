@@ -11,6 +11,6 @@
 
 @interface ImageCell : UICollectionViewCell
 
-@property (strong, nonatomic) IBOutlet CachedImageView *cachedImageView;
+@property (strong, nonatomic) IBOutlet UIImageView *imageView;
 
 @end

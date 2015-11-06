@@ -14,7 +14,7 @@
                         <animations/>
                     </navigationBar>
                     <connections>
-                        <segue destination="Qyq-fC-4Sc" kind="relationship" relationship="rootViewController" id="1Aw-dr-FIU"/>
+                        <segue destination="Qyq-fC-4Sc" kind="relationship" relationship="rootViewController" id="pnp-iK-nD7"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8fS-aE-onr" sceneMemberID="firstResponder"/>
@@ -25,25 +25,25 @@
         <scene sceneID="fTA-YN-4HU">
             <objects>
                 <collectionViewController id="Qyq-fC-4Sc" customClass="ImageResultViewController" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="kq2-mA-M2z">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="interactive" dataMode="prototypes" id="kq2-mA-M2z">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="FjF-nB-07h">
                             <size key="itemSize" width="50" height="50"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="headerReferenceSize" width="600" height="44"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCell" id="EsB-7g-XAe" customClass="ImageCell">
-                                <rect key="frame" x="0.0" y="64" width="50" height="50"/>
+                                <rect key="frame" x="0.0" y="108" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="N9j-b4-AwY" customClass="CachedImageView">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="N9j-b4-AwY">
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                             <animations/>
                                         </imageView>
@@ -60,10 +60,30 @@
                                     <constraint firstAttribute="trailing" secondItem="N9j-b4-AwY" secondAttribute="trailing" id="mzV-IV-mJ5"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="cachedImageView" destination="N9j-b4-AwY" id="Izw-yB-NM5"/>
+                                    <outlet property="imageView" destination="N9j-b4-AwY" id="5vd-hT-sMR"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SearchHeader" id="TNV-Ri-ls0" customClass="CollectionViewSearchHeader">
+                            <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <subviews>
+                                <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="LIO-Os-dPy">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                    <animations/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </searchBar>
+                            </subviews>
+                            <animations/>
+                            <constraints>
+                                <constraint firstItem="LIO-Os-dPy" firstAttribute="leading" secondItem="TNV-Ri-ls0" secondAttribute="leadingMargin" constant="-8" id="KdU-5z-uJk"/>
+                                <constraint firstAttribute="top" secondItem="LIO-Os-dPy" secondAttribute="top" id="Owm-Ol-1XA"/>
+                                <constraint firstAttribute="trailingMargin" secondItem="LIO-Os-dPy" secondAttribute="trailing" constant="-8" id="h5G-Yo-0HJ"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="searchBar" destination="LIO-Os-dPy" id="NI9-MW-Zg8"/>
+                            </connections>
+                        </collectionReusableView>
                         <connections>
                             <outlet property="dataSource" destination="Qyq-fC-4Sc" id="Kvc-ml-yxc"/>
                             <outlet property="delegate" destination="Qyq-fC-4Sc" id="sEx-Dd-aIG"/>
@@ -76,7 +96,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W8g-kZ-51R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="694" y="-641"/>
+            <point key="canvasLocation" x="702" y="-643"/>
         </scene>
         <!--Detail-->
         <scene sceneID="yUG-lL-AsK">

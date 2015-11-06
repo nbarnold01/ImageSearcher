@@ -15,6 +15,8 @@
 		313BFB5B1BEBE8870049BA1C /* ImageSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 313BFB5A1BEBE8870049BA1C /* ImageSearch.m */; settings = {ASSET_TAGS = (); }; };
 		313BFB5F1BEC04820049BA1C /* CachedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 313BFB5E1BEC04820049BA1C /* CachedImageView.m */; settings = {ASSET_TAGS = (); }; };
 		313BFB621BEC08B60049BA1C /* ImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 313BFB611BEC08B60049BA1C /* ImageCell.m */; settings = {ASSET_TAGS = (); }; };
+		313BFB651BECB8D60049BA1C /* ImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 313BFB641BECB8D60049BA1C /* ImageTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		313BFB681BECBF6B0049BA1C /* CollectionViewSearchHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 313BFB671BECBF6B0049BA1C /* CollectionViewSearchHeader.m */; settings = {ASSET_TAGS = (); }; };
 		31E50AF51BEBC1C000E384DD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E50AF41BEBC1C000E384DD /* main.m */; };
 		31E50AFB1BEBC1C000E384DD /* ImageSearcher.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 31E50AF91BEBC1C000E384DD /* ImageSearcher.xcdatamodeld */; };
 		31E50B041BEBC1C000E384DD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E50B021BEBC1C000E384DD /* Main.storyboard */; };
@@ -61,6 +63,10 @@
 		313BFB5E1BEC04820049BA1C /* CachedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CachedImageView.m; path = Views/CachedImageView.m; sourceTree = "<group>"; };
 		313BFB601BEC08B60049BA1C /* ImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageCell.h; path = Views/ImageCell.h; sourceTree = "<group>"; };
 		313BFB611BEC08B60049BA1C /* ImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageCell.m; path = Views/ImageCell.m; sourceTree = "<group>"; };
+		313BFB631BECB8D60049BA1C /* ImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageTableViewCell.h; path = Views/ImageTableViewCell.h; sourceTree = "<group>"; };
+		313BFB641BECB8D60049BA1C /* ImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageTableViewCell.m; path = Views/ImageTableViewCell.m; sourceTree = "<group>"; };
+		313BFB661BECBF6B0049BA1C /* CollectionViewSearchHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CollectionViewSearchHeader.h; path = Views/CollectionViewSearchHeader.h; sourceTree = "<group>"; };
+		313BFB671BECBF6B0049BA1C /* CollectionViewSearchHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CollectionViewSearchHeader.m; path = Views/CollectionViewSearchHeader.m; sourceTree = "<group>"; };
 		31E50AF01BEBC1C000E384DD /* ImageSearcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageSearcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31E50AF41BEBC1C000E384DD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		31E50AFA1BEBC1C000E384DD /* ImageSearcher.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ImageSearcher.xcdatamodel; sourceTree = "<group>"; };
@@ -127,8 +133,12 @@
 			children = (
 				313BFB5D1BEC04820049BA1C /* CachedImageView.h */,
 				313BFB5E1BEC04820049BA1C /* CachedImageView.m */,
+				313BFB661BECBF6B0049BA1C /* CollectionViewSearchHeader.h */,
+				313BFB671BECBF6B0049BA1C /* CollectionViewSearchHeader.m */,
 				313BFB601BEC08B60049BA1C /* ImageCell.h */,
 				313BFB611BEC08B60049BA1C /* ImageCell.m */,
+				313BFB631BECB8D60049BA1C /* ImageTableViewCell.h */,
+				313BFB641BECB8D60049BA1C /* ImageTableViewCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -516,6 +526,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				313BFB651BECB8D60049BA1C /* ImageTableViewCell.m in Sources */,
+				313BFB681BECBF6B0049BA1C /* CollectionViewSearchHeader.m in Sources */,
 				313BFB4E1BEBE3D80049BA1C /* APIClient.m in Sources */,
 				313BFB621BEC08B60049BA1C /* ImageCell.m in Sources */,
 				313BFB5B1BEBE8870049BA1C /* ImageSearch.m in Sources */,

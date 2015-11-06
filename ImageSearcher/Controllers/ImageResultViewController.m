@@ -11,8 +11,9 @@
 #import "ImageSearch.h"
 #import "ImageSearchResult.h"
 #import "ImageCell.h"
+#import "CollectionViewSearchHeader.h"
 
-@interface ImageResultViewController()
+@interface ImageResultViewController() <UISearchBarDelegate>
 @property (strong) ImageSearch *imageSearch;
 @property (nonatomic, strong) NSMutableArray *images;
 @end
@@ -32,7 +33,7 @@
     self.clearsSelectionOnViewWillAppear = self.splitViewController.isCollapsed;
     [super viewWillAppear:animated];
     
-    self.imageSearch = [[ImageSearch alloc]initWithQuery:@"pet dog"];
+    self.imageSearch = [[ImageSearch alloc]initWithQuery:@"puppies"];
     
     [self.imageSearch executeWithComplete:^(NSArray *results, NSError *error) {
         if (error){
@@ -91,7 +92,7 @@
 - (void)configureCell:(ImageCell *)cell atIndexPath:(NSIndexPath *)indexPath {
 
     ImageSearchResult *result = [self resultForIndexPath:indexPath];
-    [cell.cachedImageView is_setImageWithURL:result.thumbURL];
+    [cell.imageView sd_setImageWithURL:result.thumbURL];
 }
 
 - (ImageSearchResult *)resultForIndexPath:(NSIndexPath *)indexPath {
@@ -201,6 +202,18 @@
     return size;
 }
 
+
+- (UICollectionReusableView *)collectionView: (UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    
+    //Custom class for the header view. Controls are defined in the Storyboard
+    CollectionViewSearchHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:
+                              UICollectionElementKindSectionHeader withReuseIdentifier:@"SearchHeader" forIndexPath:indexPath];
+    
+    headerView.searchBar.delegate = self;
+
+    
+    return headerView;
+}
 
 /*
 // Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed. 
