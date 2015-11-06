@@ -25,25 +25,11 @@
     // Do any additional setup after loading the view, typically from a nib.
 
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
-    
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     self.clearsSelectionOnViewWillAppear = self.splitViewController.isCollapsed;
     [super viewWillAppear:animated];
-    
-    self.imageSearch = [[ImageSearch alloc]initWithQuery:@"puppies"];
-    
-    [self.imageSearch executeWithComplete:^(NSArray *results, NSError *error) {
-        if (error){
-            NSLog(@"error: %@", error);
-        } else {
-            self.images = [NSMutableArray arrayWithArray:results];
-            [self.collectionView reloadData];
-        }
-    }];
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -224,5 +210,36 @@
     [self.collectionView reloadData];
 }
  */
+
+
+#pragma mark - Search Bar Delegate
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+   // called when keyboard search button pressed
+    [self search:searchBar.text];
+}
+
+#pragma mark - Private
+
+- (void)search:(NSString *)searchTerm {
+    
+    if (searchTerm) {
+        self.imageSearch = [[ImageSearch alloc]initWithQuery:searchTerm];
+        [self.imageSearch executeWithComplete:^(NSArray *results, NSError *error) {
+            if (error){
+                NSLog(@"error: %@", error);
+            } else {
+                self.images = [NSMutableArray arrayWithArray:results];
+                [self.collectionView reloadData];
+            }
+        }];
+    } else {
+        self.images = nil;
+        self.imageSearch = nil;
+        [self.collectionView reloadData];
+    }
+}
+
+
 
 @end
