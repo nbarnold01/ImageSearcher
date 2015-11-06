@@ -48,12 +48,13 @@ static NSString * const BASE_URL = @"https://ajax.googleapis.com/";
 
 
 - (nullable NSURLSessionDataTask *)getResultsForSearch:(NSString *)searchTerm
+                                                  page:(NSInteger)page
                                                success:(nullable void (^)(NSURLSessionDataTask *task, id responseObject))success
                                                failure:(nullable void (^)(NSURLSessionDataTask *task, NSError *error))failure {
     
     NSParameterAssert(searchTerm);
     
-    NSDictionary *params = @{@"v":@"1.0", @"q":searchTerm};
+    NSDictionary *params = @{@"v":@"1.0", @"q":searchTerm, @"start":[NSNumber numberWithInteger:page]};
     return [self GET:@"/ajax/services/search/images" parameters:params success:success failure:failure];
     
 }

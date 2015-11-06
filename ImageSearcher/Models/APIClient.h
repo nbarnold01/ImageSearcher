@@ -21,6 +21,7 @@
  * \return - Operation object
  */
 - (nullable NSURLSessionDataTask *)getResultsForSearch:(nullable NSString *)searchTerm
+                                                  page:(NSInteger)page
                                                success:(nullable void (^)( NSURLSessionDataTask * _Nullable task, _Nullable id responseObject))success
                                                failure:(nullable void (^)(NSURLSessionDataTask *_Nullable task, NSError *_Nullable error))failure;
 

@@ -14,9 +14,10 @@
 
 @interface ImageSearch ()
 
-@property (strong) NSMutableArray *results;
-@property (nonatomic, strong) NSURL *nextPageURL;
-@property (nonatomic, weak) NSURLSessionDataTask *requestTask;
+@property (strong) NSMutableArray *mutableResults;
+@property (strong) NSMutableArray *requests;
+
+
 
 @end
 
@@ -27,27 +28,52 @@
     
     if (self = [super init]) {
         _query = query;
+        self.requests = [NSMutableArray array];
     }
     
     return self;
 }
 
 - (void)executeWithComplete:(void (^)(NSArray *, NSError *))complete {
-    
-   self.requestTask = [[APIClient sharedInstance]getResultsForSearch:self.query
-                                           success:^(NSURLSessionDataTask * _Nullable task, id  _Nullable responseObject) {
+    [self getResultsForPage:0 complete:complete];
+}
 
-        _results = [self resultsForResponseObject:responseObject];
-        if (complete) {
-            complete([self.results copy], nil);
-        }
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nullable error) {
-        
-        if (complete) {
-            complete(nil,error);
-        }
-    }];
+- (void)getMoreResultsWithComplete:(void(^)(NSArray *results, NSError *error))complete {
+    _currentPage++;
+    [self getResultsForPage:self.currentPage complete:complete];
+}
+
+- (void)getResultsForPage:(NSInteger) page complete:(void (^)(NSArray *, NSError *))complete {
+    
+    NSURLSessionDataTask *task = [[APIClient sharedInstance]getResultsForSearch:self.query
+                                                                           page:page*4
+                                                                        success:^(NSURLSessionDataTask * _Nullable task, id  _Nullable responseObject) {
+                                                                            
+                                                                            [self.requests removeObject:task];
+
+                                                                            if (!self.mutableResults) {
+                                                                                self.mutableResults = [NSMutableArray array];
+                                                                            }
+                                                                            
+                                                                            NSArray *imagesFromRequest = [[self resultsForResponseObject:responseObject] copy];
+                                                                            [self.mutableResults addObjectsFromArray:imagesFromRequest];
+                                                                            
+                                                                            
+                                                                            if (complete) {
+                                                                                complete(imagesFromRequest, nil);
+                                                                            }
+                                                                            
+                                                                        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nullable error) {
+                                                                            
+                                                                            [self.requests removeObject:task];
+                                                                            
+                                                                            if (complete) {
+                                                                                complete(nil,error);
+                                                                            }
+                                                                        }];
+    
+    [self.requests addObject:task];
+
 }
 
 - (NSMutableArray *)resultsForResponseObject:(id)responseObject {
@@ -61,9 +87,6 @@
         DLog(@"WARNING: responseData is nil");
         return nil;
     }
-    
-    _currentPage = [responseData[@"currentPageIndex"] unsignedIntegerValue];
-    _nextPageURL = [NSURL URLWithString:responseData[@"moreResultsUrl"]];
     
     //Results should be an array of dictionaries
     NSArray *results = responseData[@"results"];
@@ -79,8 +102,36 @@
 
 - (void)cancel {
   
-    [self.requestTask cancel];
-    self.requestTask = nil;
+    for (NSURLSessionDataTask *task in self.requests){
+        [task cancel];
+    }
+
+    [self.requests removeAllObjects];
+}
+
+
+- (NSArray *)results {
+    return [self.mutableResults copy];
+}
+
+- (BOOL)isRetrievingImages {
+    
+    for (NSURLSessionDataTask *task in self.requests){
+        [task cancel];
+        if ([task state]==NSURLSessionTaskStateRunning){
+            return YES;
+        }
+    }
+    return  NO;
+}
+
+- (BOOL)isFinished {
+    return ([self.results count] >= self.numberOfResults);
+}
+
+- (NSUInteger)numberOfRequests {
+    
+    return [self.requests count];
 }
 
 @end

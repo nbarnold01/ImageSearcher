@@ -15,10 +15,49 @@
 
 @interface ImageResultViewController() <UISearchBarDelegate>
 @property (strong) ImageSearch *imageSearch;
-@property (nonatomic, strong) NSMutableArray *images;
+@property (strong) NSMutableArray *images;
+@property (strong) dispatch_queue_t imageQueue;
+
 @end
 
+static NSUInteger const ITEMS_BEFORE_PULLING = 10;
+
+
 @implementation ImageResultViewController
+
+
+- (instancetype)init {
+    
+    if (self = [super init]) {
+        [self commonInit];
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout *)layout {
+    
+    if (self = [super initWithCollectionViewLayout:layout]) {
+        [self commonInit];
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    
+    if (self = [super initWithCoder:aDecoder]) {
+        [self commonInit];
+    }
+    
+    return self;
+}
+
+
+- (void)commonInit {
+    
+    self.imageQueue = dispatch_queue_create("com.gingerandthecyclist.imageCollectionQueue", DISPATCH_QUEUE_SERIAL);
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -192,11 +231,8 @@
 #pragma mark - Collection View Flow Layout
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    
-    ImageSearchResult *currentImage = [self.images objectAtIndex:indexPath.row];
-    
-    CGSize size = CGSizeMake(MIN(collectionView.frame.size.width/3, currentImage.thumbSize.width), currentImage.thumbSize.height);
-    
+        
+    CGSize size = CGSizeMake((collectionView.frame.size.width/3)-2 , 150);
     return size;
 }
 
@@ -208,8 +244,6 @@
                               UICollectionElementKindSectionHeader withReuseIdentifier:@"SearchHeader" forIndexPath:indexPath];
     
     headerView.searchBar.delegate = self;
-
-    
     return headerView;
 }
 
@@ -222,6 +256,20 @@
     [self.collectionView reloadData];
 }
  */
+
+
+#pragma mark - Scroll View Delegate
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    float bottomEdge = scrollView.contentOffset.y + scrollView.frame.size.height;
+    if (bottomEdge >= scrollView.contentSize.height) {
+        // we are at the end
+        
+        [self pullBatchIfNessecary];
+//        [self pullBatchIfNessecary];
+
+    }
+}
 
 
 #pragma mark - Search Bar Delegate
@@ -242,24 +290,72 @@
 - (void)search:(NSString *)searchTerm {
     
     if (searchTerm) {
+        self.images = nil;
+        [self.collectionView reloadData];
+
         self.imageSearch = [[ImageSearch alloc]initWithQuery:searchTerm];
         [self.imageSearch executeWithComplete:^(NSArray *results, NSError *error) {
             if (error){
                 NSLog(@"error: %@", error);
             } else {
-                self.images = [NSMutableArray arrayWithArray:results];
-                [self.collectionView reloadData];
+                [self addImages:results];
+                [self pullBatchIfNessecary];
+                [self pullBatchIfNessecary];
+                [self pullBatchIfNessecary];
+
             }
         }];
     } else {
-        self.images = nil;
+        [self.imageSearch cancel];
         self.imageSearch = nil;
-        [self.collectionView reloadData];
     }
 }
 
+- (void)pullBatchIfNessecary {
+    
+    //TODO: Check if the images search is done
+//    if (![self.imageSearch isRetrievingImages]  && ![self.imageSearch isFinished]) {
+    if ([self.imageSearch numberOfRequests] < 4){
+        [self.imageSearch getMoreResultsWithComplete:^(NSArray *results, NSError *error) {
+            if (!error) {
+                [self addImages:results];
+            } else {
+                //show error I
+            }
+        }];
+    }
+}
 
+- (void)addImages:(NSArray *)images {
+    
+    dispatch_async(self.imageQueue, ^{
+        
+        if (!self.images && images) {
+            self.images = [NSMutableArray array];
+        }
 
+        if ([images count]) {
+            
+            
+            NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:[images count]];
+            
+            NSUInteger startingIndex = [self.images count];
+            
+            for (NSUInteger i = startingIndex; i <startingIndex+[images count]; i++) {
+                
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                [indexPaths addObject:indexPath];
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [self.images addObjectsFromArray:images];
+                
+                [self.collectionView insertItemsAtIndexPaths:indexPaths];
+            });
+        }
+    });
+}
 
 
 @end
