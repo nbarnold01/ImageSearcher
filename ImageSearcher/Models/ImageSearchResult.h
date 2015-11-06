@@ -7,14 +7,21 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface ImageSearchResult : NSObject
 
 @property (strong, readonly) NSString *imageID;
 @property (strong, readonly) NSString *title;
 @property (strong, readonly) NSString *contentDescription;
+
+//fullsize image
 @property (strong, readonly) NSURL *URL;
+@property (assign, readonly) CGSize size;
+
+//thumbnail image
 @property (strong, readonly) NSURL *thumbURL;
+@property (assign, readonly) CGSize thumbSize;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 

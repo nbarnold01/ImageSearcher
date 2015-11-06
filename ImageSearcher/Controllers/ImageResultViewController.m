@@ -10,9 +10,11 @@
 #import "DetailViewController.h"
 #import "ImageSearch.h"
 #import "ImageSearchResult.h"
+#import "ImageCell.h"
 
 @interface ImageResultViewController()
 @property (strong) ImageSearch *imageSearch;
+@property (nonatomic, strong) NSMutableArray *images;
 @end
 
 @implementation ImageResultViewController
@@ -36,9 +38,8 @@
         if (error){
             NSLog(@"error: %@", error);
         } else {
-            for (ImageSearchResult *result in results) {
-                NSLog(@"%@", [result thumbURL]);
-            }
+            self.images = [NSMutableArray arrayWithArray:results];
+            [self.collectionView reloadData];
         }
     }];
     
@@ -66,28 +67,35 @@
 
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return [[self.fetchedResultsController sections] count];
+//    return [[self.fetchedResultsController sections] count];
+    return 1;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
-    return [sectionInfo numberOfObjects];
+//    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
+//    return [sectionInfo numberOfObjects];
+    
+    return [self.images count];
 }
 
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ImageCell" forIndexPath:indexPath];
+    ImageCell *cell = (ImageCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"ImageCell" forIndexPath:indexPath];
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
     
 }
 
 
-- (void)configureCell:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
-//    cell.textLabel.text = [[object valueForKey:@"timeStamp"] description];
-#warning Configure Cell here
+- (void)configureCell:(ImageCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+
+    ImageSearchResult *result = [self resultForIndexPath:indexPath];
+    [cell.cachedImageView is_setImageWithURL:result.thumbURL];
+}
+
+- (ImageSearchResult *)resultForIndexPath:(NSIndexPath *)indexPath {
+    return self.images[indexPath.row];
 }
 
 #pragma mark - Fetched results controller
@@ -181,6 +189,18 @@
 {
     [self.collectionView endUpdates];
 }
+
+#pragma mark - Collection View Flow Layout
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    ImageSearchResult *currentImage = [self.images objectAtIndex:indexPath.row];
+    
+    CGSize size = CGSizeMake(MIN(collectionView.frame.size.width/3, currentImage.thumbSize.width), currentImage.thumbSize.height);
+    
+    return size;
+}
+
 
 /*
 // Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed. 

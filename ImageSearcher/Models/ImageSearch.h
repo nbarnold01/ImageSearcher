@@ -18,6 +18,8 @@
 
 - (void)executeWithComplete:(void(^)(NSArray *results, NSError *error))complete;
 
+- (void)cancel;
+
 - (NSArray *)results;
 
 @end

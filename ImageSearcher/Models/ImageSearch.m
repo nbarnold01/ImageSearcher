@@ -16,6 +16,7 @@
 
 @property (strong) NSMutableArray *results;
 @property (nonatomic, strong) NSURL *nextPageURL;
+@property (nonatomic, weak) NSURLSessionDataTask *requestTask;
 
 @end
 
@@ -33,7 +34,7 @@
 
 - (void)executeWithComplete:(void (^)(NSArray *, NSError *))complete {
     
-    [[APIClient sharedInstance]getResultsForSearch:self.query
+   self.requestTask = [[APIClient sharedInstance]getResultsForSearch:self.query
                                            success:^(NSURLSessionDataTask * _Nullable task, id  _Nullable responseObject) {
 
         _results = [self resultsForResponseObject:responseObject];
@@ -47,7 +48,6 @@
             complete(nil,error);
         }
     }];
-    
 }
 
 - (NSMutableArray *)resultsForResponseObject:(id)responseObject {
@@ -75,6 +75,12 @@
     }
     
     return searchResults;
+}
+
+- (void)cancel {
+  
+    [self.requestTask cancel];
+    self.requestTask = nil;
 }
 
 @end

@@ -13,6 +13,8 @@
 		313BFB541BEBE3F50049BA1C /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 313BFB511BEBE3F50049BA1C /* DetailViewController.m */; settings = {ASSET_TAGS = (); }; };
 		313BFB551BEBE3F50049BA1C /* ImageResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 313BFB531BEBE3F50049BA1C /* ImageResultViewController.m */; settings = {ASSET_TAGS = (); }; };
 		313BFB5B1BEBE8870049BA1C /* ImageSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 313BFB5A1BEBE8870049BA1C /* ImageSearch.m */; settings = {ASSET_TAGS = (); }; };
+		313BFB5F1BEC04820049BA1C /* CachedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 313BFB5E1BEC04820049BA1C /* CachedImageView.m */; settings = {ASSET_TAGS = (); }; };
+		313BFB621BEC08B60049BA1C /* ImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 313BFB611BEC08B60049BA1C /* ImageCell.m */; settings = {ASSET_TAGS = (); }; };
 		31E50AF51BEBC1C000E384DD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E50AF41BEBC1C000E384DD /* main.m */; };
 		31E50AFB1BEBC1C000E384DD /* ImageSearcher.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 31E50AF91BEBC1C000E384DD /* ImageSearcher.xcdatamodeld */; };
 		31E50B041BEBC1C000E384DD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E50B021BEBC1C000E384DD /* Main.storyboard */; };
@@ -55,6 +57,10 @@
 		313BFB561BEBE41B0049BA1C /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = Helpers/Constants.h; sourceTree = "<group>"; };
 		313BFB591BEBE8870049BA1C /* ImageSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageSearch.h; path = Models/ImageSearch.h; sourceTree = "<group>"; };
 		313BFB5A1BEBE8870049BA1C /* ImageSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageSearch.m; path = Models/ImageSearch.m; sourceTree = "<group>"; };
+		313BFB5D1BEC04820049BA1C /* CachedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CachedImageView.h; path = Views/CachedImageView.h; sourceTree = "<group>"; };
+		313BFB5E1BEC04820049BA1C /* CachedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CachedImageView.m; path = Views/CachedImageView.m; sourceTree = "<group>"; };
+		313BFB601BEC08B60049BA1C /* ImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageCell.h; path = Views/ImageCell.h; sourceTree = "<group>"; };
+		313BFB611BEC08B60049BA1C /* ImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageCell.m; path = Views/ImageCell.m; sourceTree = "<group>"; };
 		31E50AF01BEBC1C000E384DD /* ImageSearcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageSearcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31E50AF41BEBC1C000E384DD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		31E50AFA1BEBC1C000E384DD /* ImageSearcher.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ImageSearcher.xcdatamodel; sourceTree = "<group>"; };
@@ -116,6 +122,17 @@
 			name = Helpers;
 			sourceTree = "<group>";
 		};
+		313BFB5C1BEC044F0049BA1C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				313BFB5D1BEC04820049BA1C /* CachedImageView.h */,
+				313BFB5E1BEC04820049BA1C /* CachedImageView.m */,
+				313BFB601BEC08B60049BA1C /* ImageCell.h */,
+				313BFB611BEC08B60049BA1C /* ImageCell.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		31E50AE71BEBC1BF00E384DD = {
 			isa = PBXGroup;
 			children = (
@@ -141,6 +158,7 @@
 		31E50AF21BEBC1C000E384DD /* ImageSearcher */ = {
 			isa = PBXGroup;
 			children = (
+				313BFB5C1BEC044F0049BA1C /* Views */,
 				313BFB571BEBE4DD0049BA1C /* Helpers */,
 				31E50B2C1BEBD18E00E384DD /* Controllers */,
 				31E50B311BEBD21C00E384DD /* Models */,
@@ -499,6 +517,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				313BFB4E1BEBE3D80049BA1C /* APIClient.m in Sources */,
+				313BFB621BEC08B60049BA1C /* ImageCell.m in Sources */,
 				313BFB5B1BEBE8870049BA1C /* ImageSearch.m in Sources */,
 				31E50AF51BEBC1C000E384DD /* main.m in Sources */,
 				31E50B301BEBD21800E384DD /* ImageSearchResult.m in Sources */,
@@ -506,6 +525,7 @@
 				313BFB551BEBE3F50049BA1C /* ImageResultViewController.m in Sources */,
 				313BFB4F1BEBE3D80049BA1C /* AppDelegate.m in Sources */,
 				313BFB541BEBE3F50049BA1C /* DetailViewController.m in Sources */,
+				313BFB5F1BEC04820049BA1C /* CachedImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
