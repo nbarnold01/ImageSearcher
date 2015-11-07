@@ -21,10 +21,10 @@
             </objects>
             <point key="canvasLocation" x="-38" y="-630"/>
         </scene>
-        <!--Image Result View Controller-->
+        <!--Search-->
         <scene sceneID="fTA-YN-4HU">
             <objects>
-                <collectionViewController id="Qyq-fC-4Sc" customClass="ImageResultViewController" sceneMemberID="viewController">
+                <collectionViewController title="Search" id="Qyq-fC-4Sc" customClass="ImageResultViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" indicatorStyle="white" keyboardDismissMode="interactive" dataMode="prototypes" id="kq2-mA-M2z">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -90,7 +90,7 @@
                             <outlet property="delegate" destination="Qyq-fC-4Sc" id="sEx-Dd-aIG"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" id="BTB-oH-qHl"/>
+                    <navigationItem key="navigationItem" title="Search" id="BTB-oH-qHl"/>
                     <connections>
                         <segue destination="vC3-pB-5Vb" kind="showDetail" identifier="showDetail" id="kRN-eo-Be0"/>
                     </connections>
