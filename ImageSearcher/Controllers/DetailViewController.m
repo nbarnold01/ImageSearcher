@@ -10,6 +10,8 @@
 #import "ImageSearchResult.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 @interface DetailViewController ()
+{}
+@property (strong) UIImage *placeholder;
 
 @end
 
@@ -17,12 +19,14 @@
 
 #pragma mark - Managing the detail item
 
-- (void)setImageSearchResult:(ImageSearchResult *)image {
+- (void)setImageSearchResult:(ImageSearchResult *)image placeholder:(UIImage *)placeholder{
     if (_image != image) {
         _image = image;
-            
+        self.placeholder = placeholder;
         // Update the view.
-        [self configureView];
+        if (self.isViewLoaded){
+            [self configureView];
+        }
     }
 }
 
@@ -31,7 +35,7 @@
     if (self.image) {
         self.title = [self.image title];
         [self.imageView setAccessibilityLabel:[self.image contentDescription]];
-        [self.imageView sd_setImageWithURL:[self.image URL]];
+        [self.imageView sd_setImageWithURL:[self.image URL] placeholderImage:self.placeholder];
     }
 }
 
@@ -39,6 +43,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     [self configureView];
+
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning {

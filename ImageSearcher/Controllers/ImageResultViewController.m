@@ -81,11 +81,12 @@ static NSUInteger const ITEMS_BEFORE_PULLING = 10;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [[self.collectionView indexPathsForSelectedItems]firstObject];
+        ImageCell *cell = (ImageCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
 //        NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
         
         ImageSearchResult *result = [self resultForIndexPath:indexPath];
         DetailViewController *controller = (DetailViewController *)[[segue destinationViewController] topViewController];
-        [controller setImage:result];
+        [controller setImageSearchResult:result placeholder:cell.imageView.image];
         
         controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
         controller.navigationItem.leftItemsSupplementBackButton = YES;
@@ -231,7 +232,7 @@ static NSUInteger const ITEMS_BEFORE_PULLING = 10;
 #pragma mark - Collection View Flow Layout
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-        
+    
     CGSize size = CGSizeMake((collectionView.frame.size.width/3)-2 , 150);
     return size;
 }

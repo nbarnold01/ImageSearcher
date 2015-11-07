@@ -15,7 +15,7 @@
 
 @property (strong) ImageSearchResult *image;
 
-- (void)setImageSearchResult:(ImageSearchResult *)image;
+- (void)setImageSearchResult:(ImageSearchResult *)image placeholder:(UIImage *)placeholder;
 
 @end
 
