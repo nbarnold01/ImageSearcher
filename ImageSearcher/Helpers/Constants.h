@@ -16,4 +16,6 @@
 #   define DLog(...)
 #endif
 
+static NSString * const ERROR_DOMAIN = @"ImageSearcher";
+
 #endif /* Constants_h */

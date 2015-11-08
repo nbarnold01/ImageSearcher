@@ -13,48 +13,17 @@
 #import "ImageCell.h"
 #import "CollectionViewSearchHeader.h"
 
+#import <MBProgressHUD/MBProgressHUD.h>
+
+static NSInteger const MAX_REQUEST_COUNT = 2;
+
 @interface ImageResultViewController() <UISearchBarDelegate>
 @property (strong) ImageSearch *imageSearch;
 @property (strong) NSMutableArray *images;
-@property (strong) dispatch_queue_t imageQueue;
 
 @end
 
 @implementation ImageResultViewController
-
-
-- (instancetype)init {
-    
-    if (self = [super init]) {
-        [self commonInit];
-    }
-    
-    return self;
-}
-
-- (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout *)layout {
-    
-    if (self = [super initWithCollectionViewLayout:layout]) {
-        [self commonInit];
-    }
-    
-    return self;
-}
-
-- (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    
-    if (self = [super initWithCoder:aDecoder]) {
-        [self commonInit];
-    }
-    
-    return self;
-}
-
-
-- (void)commonInit {
-    
-    self.imageQueue = dispatch_queue_create("com.gingerandthecyclist.imageCollectionQueue", DISPATCH_QUEUE_SERIAL);
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -79,7 +48,6 @@
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [[self.collectionView indexPathsForSelectedItems]firstObject];
         ImageCell *cell = (ImageCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
-//        NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
         
         ImageSearchResult *result = [self resultForIndexPath:indexPath];
         DetailViewController *controller = (DetailViewController *)[[segue destinationViewController] topViewController];
@@ -148,17 +116,6 @@
     return headerView;
 }
 
-/*
-// Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed. 
- 
- - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
-{
-    // In the simplest, most efficient, case, reload the table view.
-    [self.collectionView reloadData];
-}
- */
-
-
 #pragma mark - Scroll View Delegate
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
@@ -191,15 +148,23 @@
         [self.collectionView reloadData];
         
         self.imageSearch = [ImageSearch queryForSearchString:searchTerm managedObjectContext:self.managedObjectContext];
+        
+        [self showLoadingIndicator];
+        
         [self.imageSearch executeWithComplete:^(NSArray *results, NSError *error) {
-            if (error){
-                NSLog(@"error: %@", error);
-            } else {
-                [self addImages:results];
-                [self pullBatchIfNessecary];
-                [self pullBatchIfNessecary];
-                [self pullBatchIfNessecary];
+          
+            [self hideLoadingIndicator];
 
+            if (error){
+                [self showError:error];
+            } else {
+                
+                [self addImages:results];
+                
+                //Search untill the whole screen is populated
+                if (!error && self.collectionView.frame.size.height > self.collectionView.contentSize.height) {
+                    [self pullBatchIfNessecary];
+                }
             }
         }];
         [self.managedObjectContext save:nil];
@@ -211,14 +176,23 @@
 
 - (void)pullBatchIfNessecary {
     
-    //TODO: Check if the images search is done
-//    if (![self.imageSearch isRetrievingImages]  && ![self.imageSearch isFinished]) {
-    if ([self.imageSearch numberOfRequests] < 4){
+    if ([self.imageSearch numberOfRequests] < MAX_REQUEST_COUNT && ![self.imageSearch isFinished] ){
+        
+        [self showLoadingIndicator];
         [self.imageSearch getMoreResultsWithComplete:^(NSArray *results, NSError *error) {
-            if (!error) {
-                [self addImages:results];
+    
+            [self hideLoadingIndicator];
+            
+            if (error){
+                [self showError:error];
             } else {
-                //show error I
+                
+                [self addImages:results];
+                
+                //Search untill the whole screen is populated
+                if (!error && self.collectionView.frame.size.height > self.collectionView.contentSize.height) {
+                    [self pullBatchIfNessecary];
+                }
             }
         }];
     }
@@ -226,33 +200,49 @@
 
 - (void)addImages:(NSArray *)images {
     
-    dispatch_async(self.imageQueue, ^{
+    if (!self.images && images) {
+        self.images = [NSMutableArray array];
+    }
+    
+    if ([images count]) {
         
-        if (!self.images && images) {
-            self.images = [NSMutableArray array];
+        NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:[images count]];
+        
+        NSUInteger startingIndex = [self.images count];
+        
+        for (NSUInteger i = startingIndex; i <startingIndex+[images count]; i++) {
+            
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+            [indexPaths addObject:indexPath];
         }
+        
+        [self.images addObjectsFromArray:images];
+        
+        [self.collectionView insertItemsAtIndexPaths:indexPaths];
+    }
+}
 
-        if ([images count]) {
-            
-            NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:[images count]];
-            
-            NSUInteger startingIndex = [self.images count];
-            
-            for (NSUInteger i = startingIndex; i <startingIndex+[images count]; i++) {
-                
-                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-                [indexPaths addObject:indexPath];
-            }
-            
 
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                [self.images addObjectsFromArray:images];
+- (void)showLoadingIndicator {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+}
 
-                [self.collectionView insertItemsAtIndexPaths:indexPaths];
-            });
-        }
-    });
+- (void)hideLoadingIndicator {
+    
+    if (![self.imageSearch isRetrievingImages]){
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }
+}
+
+- (void)showError:(NSError *)error {
+    
+    NSLog(@"error: %@", error);
+
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Oh No!" message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:NULL]];
+    [self presentViewController:alert animated:YES completion:NULL];
 }
 
 

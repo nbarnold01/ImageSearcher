@@ -7,6 +7,9 @@
 //
 
 #import "AppDelegate.h"
+
+#import "Constants.h"
+
 #import "DetailViewController.h"
 #import "ImageResultViewController.h"
 #import "HistoryController.h"
@@ -21,6 +24,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    
+    //TODO: Create a data stack to remove the coredata code from the App Delegate
     UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
     
     UISplitViewController *splitViewController = (UISplitViewController *)[tabBarController.viewControllers firstObject];
@@ -31,9 +36,10 @@
     UINavigationController *masterNavigationController = splitViewController.viewControllers[0];
     ImageResultViewController *controller = (ImageResultViewController *)masterNavigationController.topViewController;
     controller.managedObjectContext = self.managedObjectContext;
-
+ 
+    UINavigationController *historyNavigationController = tabBarController.viewControllers[1];
     
-    HistoryController *historyController = tabBarController.viewControllers[1];
+    HistoryController *historyController = [[historyNavigationController viewControllers]firstObject] ;
     historyController.managedObjectContext = self.managedObjectContext;
     return YES;
 }
@@ -112,7 +118,7 @@
         dict[NSLocalizedDescriptionKey] = @"Failed to initialize the application's saved data";
         dict[NSLocalizedFailureReasonErrorKey] = failureReason;
         dict[NSUnderlyingErrorKey] = error;
-        error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:9999 userInfo:dict];
+        error = [NSError errorWithDomain:ERROR_DOMAIN code:9999 userInfo:dict];
         // Replace this with code to handle the error appropriately.
         // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);

@@ -35,6 +35,7 @@ static NSInteger const NUMBER_OF_RESULTS_PER_PAGE = 4;
 @dynamic timeStamp;
 
 @synthesize numberOfResults;
+@synthesize isFinished=_isFinished;
 
 @synthesize mutableResults;
 @synthesize requests;
@@ -43,6 +44,7 @@ static NSInteger const NUMBER_OF_RESULTS_PER_PAGE = 4;
 
 
 + (instancetype)queryForSearchString:(NSString *)searchString managedObjectContext:(NSManagedObjectContext *)context {
+    
     ImageSearch *search = [NSEntityDescription insertNewObjectForEntityForName:@"ImageSearch" inManagedObjectContext:context];
     search.queryVal = searchString;
     search.timeStamp = [NSDate date];
@@ -56,24 +58,9 @@ static NSInteger const NUMBER_OF_RESULTS_PER_PAGE = 4;
     if (self = [super init]) {
         self.queryVal = query;
     }
-    
     return self;
 }
 
-//#pragma mark - NSCoding
-////In case you wanted to persist with NSKeyedArchiver
-//- (instancetype)initWithCoder:(NSCoder *)coder
-//{
-//    self = [super init];
-//    if (self) {
-//        _query = [coder decodeObjectForKey:QUERY_KEY];
-//    }
-//    return self;
-//}
-//
-//- (void)encodeWithCoder:(NSCoder *)aCoder {
-//    [aCoder encodeObject:aCoder forKey:QUERY_KEY];
-//}
 
 #pragma mark - Public
 
@@ -81,7 +68,8 @@ static NSInteger const NUMBER_OF_RESULTS_PER_PAGE = 4;
 
 
 - (void)executeWithComplete:(void (^)(NSArray *, NSError *))complete {
-    [self getResultsForPage:0 complete:complete];
+    self.currentPage = 0;
+    [self getResultsForPage:self.currentPage complete:complete];
 }
 
 - (void)getMoreResultsWithComplete:(void(^)(NSArray *results, NSError *error))complete {
@@ -97,54 +85,19 @@ static NSInteger const NUMBER_OF_RESULTS_PER_PAGE = 4;
                                                                             
                                                                             [self.requests removeObject:task];
 
-                                                                            if (!self.mutableResults) {
-                                                                                self.mutableResults = [NSMutableArray array];
-                                                                            }
-                                                                            
-                                                                            NSArray *imagesFromRequest = [[self resultsForResponseObject:responseObject] copy];
-                                                                            [self.mutableResults addObjectsFromArray:imagesFromRequest];
-                                                                            
-                                                                            
-                                                                            if (complete) {
-                                                                                complete(imagesFromRequest, nil);
-                                                                            }
+                                                                            [self handleResponseObject:responseObject complete:complete];
                                                                             
                                                                         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nullable error) {
                                                                             
                                                                             [self.requests removeObject:task];
-                                                                            
                                                                             if (complete) {
                                                                                 complete(nil,error);
                                                                             }
                                                                         }];
     
     [self.requests addObject:task];
-
 }
 
-- (NSMutableArray *)resultsForResponseObject:(id)responseObject {
-    
-    NSAssert([responseObject isKindOfClass:[NSDictionary class]], @"responseObject is NOT NSDictionary");
-
-    NSDictionary *response = (NSDictionary *)responseObject;
-    NSDictionary *responseData = response[@"responseData"];
-    
-    if (!responseData){
-        DLog(@"WARNING: responseData is nil");
-        return nil;
-    }
-    
-    //Results should be an array of dictionaries
-    NSArray *results = responseData[@"results"];
-    NSMutableArray *searchResults = [NSMutableArray arrayWithCapacity:[results count]];
-    
-    for (NSDictionary *resultDict in results) {
-        ImageSearchResult *result = [[ImageSearchResult alloc]initWithDictionary:resultDict];
-        [searchResults addObject:result];
-    }
-    
-    return searchResults;
-}
 
 - (void)cancel {
   
@@ -171,10 +124,6 @@ static NSInteger const NUMBER_OF_RESULTS_PER_PAGE = 4;
     return  NO;
 }
 
-- (BOOL)isFinished {
-    return ([self.results count] >= self.numberOfResults);
-}
-
 - (NSUInteger)numberOfRequests {
     return [self.requests count];
 }
@@ -185,6 +134,70 @@ static NSInteger const NUMBER_OF_RESULTS_PER_PAGE = 4;
 
 - (NSDate *)createdOn {
     return self.timeStamp;
+}
+
+
+
+#pragma mark - Private
+
+- (void)handleResponseObject:(id)responseObject complete:(void (^)(NSArray *, NSError *))complete {
+    
+    NSArray *imagesFromRequest = [[self resultsForResponseObject:responseObject] copy];
+    
+    if ([imagesFromRequest count]==0) {
+        //No more images. Return an error
+        
+        NSDictionary *userInfo = @{
+                                   NSLocalizedDescriptionKey: NSLocalizedString(@"There are no more images for this query.", nil),
+                                   NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"The server has provided no more images.", nil),
+                                   NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Try a new query with different keywords", nil)
+                                   };
+        
+        NSError *error = [NSError errorWithDomain:ERROR_DOMAIN
+                                             code:-1
+                                         userInfo:userInfo];
+        if (complete) {
+            complete(nil, error);
+        }
+        
+        
+    } else {
+        
+        if (!self.mutableResults) {
+            self.mutableResults = [NSMutableArray array];
+        }
+        
+        [self.mutableResults addObjectsFromArray:imagesFromRequest];
+        if (complete) {
+            complete(imagesFromRequest, nil);
+        }
+    }
+}
+
+
+- (NSMutableArray *)resultsForResponseObject:(id)responseObject {
+    
+    NSAssert([responseObject isKindOfClass:[NSDictionary class]], @"responseObject is NOT NSDictionary");
+    
+    NSDictionary *response = (NSDictionary *)responseObject;
+    NSDictionary *responseData = response[@"responseData"];
+    
+    if (!responseData){
+        DLog(@"WARNING: responseData is nil");
+        return nil;
+    }
+    
+    //Results should be an array of dictionaries
+    NSArray *results = responseData[@"results"];
+    
+    NSMutableArray *searchResults = [NSMutableArray arrayWithCapacity:[results count]];
+    
+    for (NSDictionary *resultDict in results) {
+        ImageSearchResult *result = [[ImageSearchResult alloc]initWithDictionary:resultDict];
+        [searchResults addObject:result];
+    }
+    
+    return searchResults;
 }
 
 @end
