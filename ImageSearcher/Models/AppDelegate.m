@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "DetailViewController.h"
 #import "ImageResultViewController.h"
+#import "HistoryController.h"
 
 @interface AppDelegate () <UISplitViewControllerDelegate>
 
@@ -19,14 +20,21 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
+    
+    UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
+    
+    UISplitViewController *splitViewController = (UISplitViewController *)[tabBarController.viewControllers firstObject];
     UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
     navigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem;
     splitViewController.delegate = self;
-
+    
     UINavigationController *masterNavigationController = splitViewController.viewControllers[0];
     ImageResultViewController *controller = (ImageResultViewController *)masterNavigationController.topViewController;
     controller.managedObjectContext = self.managedObjectContext;
+
+    
+    HistoryController *historyController = tabBarController.viewControllers[1];
+    historyController.managedObjectContext = self.managedObjectContext;
     return YES;
 }
 

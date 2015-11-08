@@ -16,6 +16,7 @@
 		313BFB5F1BEC04820049BA1C /* CachedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 313BFB5E1BEC04820049BA1C /* CachedImageView.m */; settings = {ASSET_TAGS = (); }; };
 		313BFB621BEC08B60049BA1C /* ImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 313BFB611BEC08B60049BA1C /* ImageCell.m */; settings = {ASSET_TAGS = (); }; };
 		313BFB681BECBF6B0049BA1C /* CollectionViewSearchHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 313BFB671BECBF6B0049BA1C /* CollectionViewSearchHeader.m */; settings = {ASSET_TAGS = (); }; };
+		31D2CC241BEE7B0200A58CE2 /* HistoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D2CC231BEE7B0200A58CE2 /* HistoryController.m */; settings = {ASSET_TAGS = (); }; };
 		31E50AF51BEBC1C000E384DD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E50AF41BEBC1C000E384DD /* main.m */; };
 		31E50AFB1BEBC1C000E384DD /* ImageSearcher.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 31E50AF91BEBC1C000E384DD /* ImageSearcher.xcdatamodeld */; };
 		31E50B041BEBC1C000E384DD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E50B021BEBC1C000E384DD /* Main.storyboard */; };
@@ -64,6 +65,8 @@
 		313BFB611BEC08B60049BA1C /* ImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageCell.m; path = Views/ImageCell.m; sourceTree = "<group>"; };
 		313BFB661BECBF6B0049BA1C /* CollectionViewSearchHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CollectionViewSearchHeader.h; path = Views/CollectionViewSearchHeader.h; sourceTree = "<group>"; };
 		313BFB671BECBF6B0049BA1C /* CollectionViewSearchHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CollectionViewSearchHeader.m; path = Views/CollectionViewSearchHeader.m; sourceTree = "<group>"; };
+		31D2CC221BEE7B0200A58CE2 /* HistoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HistoryController.h; path = Controllers/HistoryController.h; sourceTree = "<group>"; };
+		31D2CC231BEE7B0200A58CE2 /* HistoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HistoryController.m; path = Controllers/HistoryController.m; sourceTree = "<group>"; };
 		31E50AF01BEBC1C000E384DD /* ImageSearcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageSearcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31E50AF41BEBC1C000E384DD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		31E50AFA1BEBC1C000E384DD /* ImageSearcher.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ImageSearcher.xcdatamodel; sourceTree = "<group>"; };
@@ -206,6 +209,8 @@
 			children = (
 				313BFB501BEBE3F50049BA1C /* DetailViewController.h */,
 				313BFB511BEBE3F50049BA1C /* DetailViewController.m */,
+				31D2CC221BEE7B0200A58CE2 /* HistoryController.h */,
+				31D2CC231BEE7B0200A58CE2 /* HistoryController.m */,
 				313BFB521BEBE3F50049BA1C /* ImageResultViewController.h */,
 				313BFB531BEBE3F50049BA1C /* ImageResultViewController.m */,
 			);
@@ -529,6 +534,7 @@
 				31E50B301BEBD21800E384DD /* ImageSearchResult.m in Sources */,
 				31E50AFB1BEBC1C000E384DD /* ImageSearcher.xcdatamodeld in Sources */,
 				313BFB551BEBE3F50049BA1C /* ImageResultViewController.m in Sources */,
+				31D2CC241BEE7B0200A58CE2 /* HistoryController.m in Sources */,
 				313BFB4F1BEBE3D80049BA1C /* AppDelegate.m in Sources */,
 				313BFB541BEBE3F50049BA1C /* DetailViewController.m in Sources */,
 				313BFB5F1BEC04820049BA1C /* CachedImageView.m in Sources */,

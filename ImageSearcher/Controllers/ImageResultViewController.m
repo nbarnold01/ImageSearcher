@@ -20,9 +20,6 @@
 
 @end
 
-static NSUInteger const ITEMS_BEFORE_PULLING = 10;
-
-
 @implementation ImageResultViewController
 
 
@@ -97,14 +94,10 @@ static NSUInteger const ITEMS_BEFORE_PULLING = 10;
 
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-//    return [[self.fetchedResultsController sections] count];
     return 1;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-//    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
-//    return [sectionInfo numberOfObjects];
-    
     return [self.images count];
 }
 
@@ -134,99 +127,6 @@ static NSUInteger const ITEMS_BEFORE_PULLING = 10;
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
     [self performSegueWithIdentifier:@"showDetail" sender:nil];
-}
-
-
-#pragma mark - Fetched results controller
-
-- (NSFetchedResultsController *)fetchedResultsController
-{
-    if (_fetchedResultsController != nil) {
-        return _fetchedResultsController;
-    }
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    // Edit the entity name as appropriate.
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:self.managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    // Set the batch size to a suitable number.
-    [fetchRequest setFetchBatchSize:20];
-    
-    // Edit the sort key as appropriate.
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeStamp" ascending:NO];
-
-    [fetchRequest setSortDescriptors:@[sortDescriptor]];
-    
-    // Edit the section name key path and cache name if appropriate.
-    // nil for section name key path means "no sections".
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Master"];
-    aFetchedResultsController.delegate = self;
-    self.fetchedResultsController = aFetchedResultsController;
-    
-	NSError *error = nil;
-	if (![self.fetchedResultsController performFetch:&error]) {
-	     // Replace this implementation with code to handle the error appropriately.
-	     // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-	    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-	    abort();
-	}
-    
-    return _fetchedResultsController;
-}    
-
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
-{
-    [self.collectionView beginUpdates];
-}
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
-           atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
-{
-    switch(type) {
-        case NSFetchedResultsChangeInsert:
-            [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeDelete:
-            [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        default:
-            return;
-    }
-}
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
-       atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
-      newIndexPath:(NSIndexPath *)newIndexPath
-{
-    
-    UICollectionView *collectionView = self.collectionView;
-    
-    switch(type) {
-        case NSFetchedResultsChangeInsert:
-            [collectionView insertItemsAtIndexPaths:@[newIndexPath]];
-            break;
-            
-        case NSFetchedResultsChangeDelete:
-            [collectionView deleteItemsAtIndexPaths:@[newIndexPath]];
-            break;
-            
-        case NSFetchedResultsChangeUpdate:
-            [self configureCell:[collectionView cellForItemAtIndexPath:indexPath] atIndexPath:indexPath];
-            break;
-            
-        case NSFetchedResultsChangeMove:
-            [collectionView deleteItemsAtIndexPaths:@[indexPath]];
-            [collectionView insertItemsAtIndexPaths:@[newIndexPath]];
-            break;
-    }
-}
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
-{
-    [self.collectionView endUpdates];
 }
 
 #pragma mark - Collection View Flow Layout
@@ -264,11 +164,8 @@ static NSUInteger const ITEMS_BEFORE_PULLING = 10;
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     float bottomEdge = scrollView.contentOffset.y + scrollView.frame.size.height;
     if (bottomEdge >= scrollView.contentSize.height) {
-        // we are at the end
-        
+        // we are at the bottom of the content
         [self pullBatchIfNessecary];
-//        [self pullBatchIfNessecary];
-
     }
 }
 
@@ -283,7 +180,6 @@ static NSUInteger const ITEMS_BEFORE_PULLING = 10;
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
     // called when cancel button pressed
     [searchBar resignFirstResponder];
-    
 }
 
 #pragma mark - Private
@@ -293,8 +189,8 @@ static NSUInteger const ITEMS_BEFORE_PULLING = 10;
     if (searchTerm) {
         self.images = nil;
         [self.collectionView reloadData];
-
-        self.imageSearch = [[ImageSearch alloc]initWithQuery:searchTerm];
+        
+        self.imageSearch = [ImageSearch queryForSearchString:searchTerm managedObjectContext:self.managedObjectContext];
         [self.imageSearch executeWithComplete:^(NSArray *results, NSError *error) {
             if (error){
                 NSLog(@"error: %@", error);
@@ -306,6 +202,7 @@ static NSUInteger const ITEMS_BEFORE_PULLING = 10;
 
             }
         }];
+        [self.managedObjectContext save:nil];
     } else {
         [self.imageSearch cancel];
         self.imageSearch = nil;
@@ -337,7 +234,6 @@ static NSUInteger const ITEMS_BEFORE_PULLING = 10;
 
         if ([images count]) {
             
-            
             NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:[images count]];
             
             NSUInteger startingIndex = [self.images count];
@@ -348,10 +244,11 @@ static NSUInteger const ITEMS_BEFORE_PULLING = 10;
                 [indexPaths addObject:indexPath];
             }
             
+
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 [self.images addObjectsFromArray:images];
-                
+
                 [self.collectionView insertItemsAtIndexPaths:indexPaths];
             });
         }

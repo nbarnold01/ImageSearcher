@@ -7,15 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
+@interface ImageSearch : NSManagedObject 
 
-@interface ImageSearch : NSObject
-
-@property (strong, readonly) NSString *query;
-@property (readonly) NSInteger currentPage;
+@property (strong, readonly) NSString *searchString;
 @property (readonly) NSUInteger numberOfResults;
+@property (readonly, strong) NSDate *createdOn;
 
 
-- (instancetype)initWithQuery:(NSString *)query;
++ (instancetype)queryForSearchString:(NSString *)searchString managedObjectContext:(NSManagedObjectContext *)context;
 
 - (void)executeWithComplete:(void(^)(NSArray *results, NSError *error))complete;
 
