@@ -13,6 +13,7 @@
 #import "ImageCell.h"
 #import "CollectionViewSearchHeader.h"
 
+#import <SDWebImage/UIImageView+WebCache.h>
 #import <MBProgressHUD/MBProgressHUD.h>
 
 static NSInteger const MAX_REQUEST_COUNT = 2;

@@ -37,6 +37,7 @@
 // Return YES if there are no more images to get
 - (BOOL)isFinished;
 
+// Number of network requests that are currently running
 - (NSUInteger)numberOfRequests;
 
 @end

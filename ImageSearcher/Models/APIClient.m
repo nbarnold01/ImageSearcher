@@ -69,6 +69,7 @@ static NSString * const BASE_URL = @"https://ajax.googleapis.com/";
 - (NSURLSessionDataTask *)dataTaskWithRequest:(NSURLRequest *)request
                             completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError *error))completionHandler {
     
+    //Log the requests when the go out and come back in
     DLog(@"%@ %@", [request HTTPMethod], [request URL]);
     
     return [super dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {

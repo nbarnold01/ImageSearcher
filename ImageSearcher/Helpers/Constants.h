@@ -9,7 +9,7 @@
 #ifndef Constants_h
 #define Constants_h
 
-
+//Logger that only prints in debug mode
 #ifdef DEBUG
 #   define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
 #else
