@@ -39,7 +39,6 @@ static NSString * const BASE_URL = @"https://ajax.googleapis.com/";
         
         
         [[AFNetworkReachabilityManager sharedManager] startMonitoring];
-        
     }
     
     return self;

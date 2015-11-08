@@ -140,12 +140,10 @@ static NSInteger const MAX_REQUEST_COUNT = 2;
 #pragma mark - Search Bar Delegate
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-   // called when keyboard search button pressed
     [self search:searchBar.text];
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
-    // called when cancel button pressed
     [searchBar resignFirstResponder];
 }
 

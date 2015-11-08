@@ -42,6 +42,9 @@
     [app.collectionViews.searchFields[@"Search for images"] typeText:@"puppies"];
     [app typeText:@"\r"];
     
+    
+    
+    
 }
 
 @end
