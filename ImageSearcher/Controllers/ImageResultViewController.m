@@ -18,12 +18,16 @@
 static NSInteger const MAX_REQUEST_COUNT = 2;
 
 @interface ImageResultViewController() <UISearchBarDelegate>
+
 @property (strong) ImageSearch *imageSearch;
 @property (strong) NSMutableArray *images;
+@property (weak) UISearchBar *searchBar;
 
 @end
 
 @implementation ImageResultViewController
+
+#pragma mark - View Lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -93,7 +97,7 @@ static NSInteger const MAX_REQUEST_COUNT = 2;
 #pragma mark - Collection View Delegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+    [self.searchBar resignFirstResponder];
     [self performSegueWithIdentifier:@"showDetail" sender:nil];
 }
 
@@ -113,6 +117,7 @@ static NSInteger const MAX_REQUEST_COUNT = 2;
                               UICollectionElementKindSectionHeader withReuseIdentifier:@"SearchHeader" forIndexPath:indexPath];
     
     headerView.searchBar.delegate = self;
+    self.searchBar = headerView.searchBar;
     return headerView;
 }
 
@@ -124,6 +129,10 @@ static NSInteger const MAX_REQUEST_COUNT = 2;
         // we are at the bottom of the content
         [self pullBatchIfNessecary];
     }
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self.searchBar resignFirstResponder];
 }
 
 
@@ -222,6 +231,7 @@ static NSInteger const MAX_REQUEST_COUNT = 2;
     }
 }
 
+#pragma mark - Network Activity
 
 - (void)showLoadingIndicator {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -235,6 +245,8 @@ static NSInteger const MAX_REQUEST_COUNT = 2;
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }
 }
+
+#pragma mark - Error Handling
 
 - (void)showError:(NSError *)error {
     
