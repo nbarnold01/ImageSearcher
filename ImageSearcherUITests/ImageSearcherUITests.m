@@ -32,9 +32,16 @@
     [super tearDown];
 }
 
-- (void)testExample {
+- (void)testSearchForKeyword {
     // Use recording to get started writing UI tests.
     // Use XCTAssert and related functions to verify your tests produce the correct results.
+    
+    XCUIApplication *app = [[XCUIApplication alloc] init];
+    [app.collectionViews.searchFields[@"Search for images"] tap];
+    
+    [app.collectionViews.searchFields[@"Search for images"] typeText:@"puppies"];
+    [app typeText:@"\r"];
+    
 }
 
 @end
