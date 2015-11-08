@@ -9,10 +9,12 @@
 #import "HistoryController.h"
 #import "ImageSearch.h"
 
+#import <MBProgressHUD/MBProgressHUD.h>
+
 @implementation HistoryController
 
-#pragma mark - Fetched results controller
 
+#pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)table {
     return [[self.fetchedResultsController sections] count];
@@ -38,6 +40,29 @@
     ImageSearch  *search = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = [search searchString];
 }
+
+
+#pragma mark - Table View Delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    UIPasteboard * pasteboard=[UIPasteboard generalPasteboard];
+    [pasteboard setString:cell.textLabel.text];
+    
+    MBProgressHUD *hud = [[MBProgressHUD alloc]initWithView:self.view];
+    hud.labelText = @"Copied";
+    [self.view addSubview:hud];
+    hud.mode = MBProgressHUDModeCustomView;
+
+    [hud show:YES];
+    [hud hide:YES afterDelay:1];
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+
+#pragma mark - Fetched results controller
 
 - (NSFetchedResultsController *)fetchedResultsController
 {
